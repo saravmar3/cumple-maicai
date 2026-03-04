@@ -1,323 +1,396 @@
 <!doctype html>
 <html lang="es">
-
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cumple Maicai ✨</title>
 
-<title>Cumple Maicai ✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Allura&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body{
+      margin:0;
+      font-family:'Quicksand', sans-serif;
+      background:linear-gradient(160deg,#0c1124,#1b2548);
+      color:white;
+      display:flex;
+      justify-content:center;
+      padding:40px;
+    }
 
-<style>
+    .wrap{max-width:900px;width:100%;}
+    .card{
+      background:rgba(255,255,255,0.08);
+      border-radius:24px;
+      padding:30px;
+      backdrop-filter:blur(12px);
+      box-shadow:0 20px 60px rgba(0,0,0,0.5);
+      border:1px solid rgba(255,255,255,0.10);
+    }
 
-body{
-margin:0;
-font-family:Quicksand,sans-serif;
-background:linear-gradient(160deg,#0c1124,#1b2548);
-color:white;
-display:flex;
-justify-content:center;
-padding:40px;
-}
+    h1{
+      font-family:'Allura', cursive;
+      font-size:64px;
+      text-align:center;
+      margin:0 0 10px 0;
+      background:linear-gradient(#f7e7a6,#d7b35a);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
 
-.wrap{
-max-width:900px;
-width:100%;
-}
+    .sub{text-align:center;margin-bottom:20px;opacity:.95}
+    .scene{
+      position:relative;
+      height:350px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:22px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.10);
+      overflow:hidden;
+    }
 
-.card{
-background:rgba(255,255,255,0.08);
-border-radius:24px;
-padding:30px;
-backdrop-filter:blur(12px);
-box-shadow:0 20px 60px rgba(0,0,0,0.5);
-}
+    /* Simple constellations (decor) */
+    .stars{
+      position:absolute; inset:0; pointer-events:none; opacity:.5;
+      background:
+        radial-gradient(2px 2px at 15% 25%, rgba(247,231,166,.9) 40%, transparent 41%),
+        radial-gradient(2px 2px at 75% 30%, rgba(247,231,166,.8) 40%, transparent 41%),
+        radial-gradient(1.5px 1.5px at 30% 70%, rgba(255,214,234,.8) 40%, transparent 41%),
+        radial-gradient(1.5px 1.5px at 85% 65%, rgba(255,214,234,.6) 40%, transparent 41%);
+    }
+    .line{
+      position:absolute; height:1px; background:rgba(247,231,166,.35); transform-origin:left center;
+      pointer-events:none;
+    }
 
-h1{
-font-family:Allura;
-font-size:64px;
-text-align:center;
-margin:0 0 10px 0;
-background:linear-gradient(#f7e7a6,#d7b35a);
--webkit-background-clip:text;
-color:transparent;
-}
+    /* cake */
+    .cakeWrap{
+      position:relative;
+      width:380px;
+      height:260px;
+      cursor:pointer;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-.sub{
-text-align:center;
-margin-bottom:20px;
-}
+    .cake{
+      position:absolute;
+      bottom:40px;
+      width:100%;
+      height:160px;
+      background:linear-gradient(#ffe0a3,#f0c77f);
+      border-radius:30px;
+      box-shadow:0 18px 40px rgba(0,0,0,.35);
+    }
 
-.scene{
-position:relative;
-height:350px;
-display:flex;
-align-items:center;
-justify-content:center;
-}
+    .icing{
+      position:absolute;
+      top:0;
+      width:100%;
+      height:60px;
+      background:#ff67b5;
+      clip-path:polygon(
+        0 0, 100% 0, 100% 70%,
+        92% 80%, 84% 65%, 76% 85%,
+        68% 65%, 60% 85%, 52% 65%,
+        44% 85%, 36% 65%, 28% 85%,
+        20% 65%, 12% 80%, 0% 70%
+      );
+      box-shadow: inset 0 -10px 20px rgba(0,0,0,.12);
+    }
 
-/* cake */
+    /* plate */
+    .plate{
+      position:absolute;
+      bottom:10px;
+      width:100%;
+      height:28px;
+      background:rgba(255,255,255,0.18);
+      border-radius:40px;
+      border:1px solid rgba(255,255,255,0.18);
+      box-shadow:0 12px 26px rgba(0,0,0,.25);
+    }
 
-.cakeWrap{
-position:relative;
-width:380px;
-height:260px;
-}
+    /* candles */
+    .candles{
+      position:absolute;
+      top:0px;
+      left:50%;
+      transform:translateX(-50%);
+      width:92%;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      z-index:10;
+      pointer-events:none;
+    }
 
-.cake{
-position:absolute;
-bottom:40px;
-width:100%;
-height:160px;
-background:linear-gradient(#ffe0a3,#f0c77f);
-border-radius:30px;
-}
+    .candle{
+      width:14px;
+      height:54px;
+      border-radius:10px;
+      background:linear-gradient(#ffd6ea,#ff8ccf);
+      position:relative;
+      box-shadow:0 10px 18px rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.22);
+    }
 
-.icing{
-position:absolute;
-top:0;
-width:100%;
-height:60px;
-background:#ff67b5;
-clip-path:polygon(
-0 0,
-100% 0,
-100% 70%,
-92% 80%,
-84% 65%,
-76% 85%,
-68% 65%,
-60% 85%,
-52% 65%,
-44% 85%,
-36% 65%,
-28% 85%,
-20% 65%,
-12% 80%,
-0% 70%
-);
-}
+    /* alternate colors */
+    .candle:nth-child(3n+2){ background:linear-gradient(#f7e7a6,#d7b35a); }
+    .candle:nth-child(3n){ background:linear-gradient(#b9a7ff,#7e66ff); }
 
-/* plate */
+    .wick{
+      position:absolute;
+      top:-8px;
+      left:50%;
+      transform:translateX(-50%);
+      width:3px;
+      height:10px;
+      border-radius:2px;
+      background:rgba(40,25,20,.9);
+    }
 
-.plate{
-position:absolute;
-bottom:10px;
-width:100%;
-height:28px;
-background:rgba(255,255,255,0.2);
-border-radius:40px;
-}
+    .flame{
+      position:absolute;
+      top:-24px;
+      left:50%;
+      transform:translateX(-50%);
+      width:16px;
+      height:22px;
+      border-radius:50% 50% 55% 55%;
+      background:radial-gradient(circle,#fff6c7,#ff9a1f 60%, #ff4a00 95%);
+      box-shadow:0 0 12px rgba(255,179,0,.9);
+      animation:flicker .15s infinite alternate;
+    }
 
-/* candles */
+    @keyframes flicker{
+      from{ transform:translateX(-50%) scale(1); }
+      to{ transform:translateX(-50%) scale(1.15); }
+    }
 
-.candles{
-position:absolute;
-top:10px;
-width:100%;
-display:flex;
-justify-content:center;
-gap:20px;
-z-index:10;
-}
+    .blown .flame{ display:none; }
 
-.candle{
-width:16px;
-height:60px;
-border-radius:10px;
-background:linear-gradient(#ffd6ea,#ff8ccf);
-position:relative;
-}
+    /* buttons */
+    .btns{
+      margin-top:20px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    button{
+      padding:12px 20px;
+      border-radius:40px;
+      border:none;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .primary{
+      background:linear-gradient(#f7e7a6,#d7b35a);
+      color:#1a1022;
+    }
+    .ghost{
+      background:rgba(255,255,255,0.15);
+      color:white;
+      border:1px solid rgba(255,255,255,0.18);
+    }
 
-.candle:nth-child(2){
-background:linear-gradient(#f7e7a6,#d7b35a);
-}
+    /* step2 */
+    .hidden{ display:none; }
+    .optionGrid{ margin-top:16px; display:grid; gap:10px; }
+    .option{
+      background:rgba(255,255,255,0.08);
+      padding:16px;
+      border-radius:14px;
+      text-decoration:none;
+      color:white;
+      border:1px solid rgba(255,255,255,0.12);
+      transition: transform .08s ease;
+    }
+    .option:hover{ transform: translateY(-1px); }
 
-.candle:nth-child(3){
-background:linear-gradient(#b9a7ff,#7e66ff);
-}
+    .lead{
+      font-weight:700;
+      margin-top:14px;
+      margin-bottom:8px;
+      opacity:.95;
+    }
 
-.flame{
-position:absolute;
-top:-22px;
-left:50%;
-transform:translateX(-50%);
-width:16px;
-height:22px;
-border-radius:50%;
-background:radial-gradient(circle,#fff6c7,#ff9a1f);
-box-shadow:0 0 12px #ffb300;
-animation:flicker .15s infinite alternate;
-}
+    .signature{
+      margin-top:18px;
+      text-align:center;
+      opacity:.9;
+      font-weight:700;
+    }
 
-@keyframes flicker{
-from{transform:translateX(-50%) scale(1);}
-to{transform:translateX(-50%) scale(1.2);}
-}
-
-.blown .flame{
-display:none;
-}
-
-/* buttons */
-
-.btns{
-margin-top:20px;
-display:flex;
-justify-content:center;
-gap:12px;
-}
-
-button{
-padding:12px 20px;
-border-radius:40px;
-border:none;
-font-weight:700;
-cursor:pointer;
-}
-
-.primary{
-background:linear-gradient(#f7e7a6,#d7b35a);
-}
-
-.ghost{
-background:rgba(255,255,255,0.15);
-color:white;
-}
-
-/* step2 */
-
-.hidden{
-display:none;
-}
-
-.optionGrid{
-margin-top:20px;
-display:grid;
-gap:10px;
-}
-
-.option{
-background:rgba(255,255,255,0.08);
-padding:16px;
-border-radius:14px;
-text-decoration:none;
-color:white;
-}
-
-</style>
+    /* confetti */
+    .confetti{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index:9999;
+    }
+    .confetti span{
+      position:absolute;
+      top:-10vh;
+      width:10px;
+      height:16px;
+      border-radius:3px;
+      animation: fall linear forwards;
+      opacity:.95;
+    }
+    @keyframes fall{
+      to{ transform: translateY(120vh) rotate(720deg); }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="confetti" id="confetti"></div>
 
-<div class="wrap">
+  <div class="wrap">
 
-<div class="card" id="step1">
+    <div class="card" id="step1">
+      <h1>Hoy cumple años<br>el alma más linda</h1>
+      <p class="sub">Para <b>Maicai</b> ✨</p>
 
-<h1>Hoy cumple años<br>el alma más linda</h1>
+      <div class="scene">
+        <div class="stars"></div>
 
-<p class="sub">Para <b>Maicai</b> ✨</p>
+        <!-- decorative constellation-ish lines -->
+        <div class="line" style="left:12%; top:28%; width:220px; transform:rotate(18deg)"></div>
+        <div class="line" style="left:72%; top:32%; width:150px; transform:rotate(-12deg)"></div>
+        <div class="line" style="left:18%; top:76%; width:180px; transform:rotate(-18deg)"></div>
 
-<div class="scene">
+        <div class="cakeWrap" id="cakeArea" title="Sopla haciendo click">
+          <div class="candles" id="candles">
+            <!-- 10 candles -->
+            <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+            <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+            <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+            <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+            <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+            <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+            <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+            <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+            <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+            <div class="candle"><div class="wick"></div><div class="flame"></div></div>
+          </div>
 
-<div class="cakeWrap" id="cakeArea">
+          <div class="cake" id="cake">
+            <div class="icing"></div>
+          </div>
 
-<div class="candles" id="candles">
+          <div class="plate"></div>
+        </div>
+      </div>
 
-<div class="candle">
-<div class="flame"></div>
-</div>
+      <div class="btns">
+        <button class="primary" id="blowBtn">Soplar 🎂</button>
+        <button class="ghost" id="skipBtn">Ir directo al regalo →</button>
+      </div>
+    </div>
 
-<div class="candle">
-<div class="flame"></div>
-</div>
+    <div class="card hidden" id="step2" style="margin-top:20px;">
+      <p>
+        Este regalo es para que te tomes un momento de observar y aprender de tu mundo interior.
+        <br><br>
+        En compañía de una <b>astróloga ✨</b>, verás tu revolución solar y lo que el universo tiene preparado para ti este año.
+      </p>
 
-<div class="candle">
-<div class="flame"></div>
-</div>
+      <p class="lead">Elige la opción que prefieres para tu regalo</p>
 
-</div>
+      <div class="optionGrid">
+        <a class="option"
+           href="https://wa.me/525520289827?text=Hola%20✨%20Quiero%20reservar%20la%20sesión%20(Presencial%20Envigado%20-%20El%20Esmeraldal)%20para%20el%20Sábado%209%20de%20marzo%20en%20la%20mañana."
+           target="_blank" rel="noopener">
+          Presencial Envigado – El Esmeraldal (Sábado 9 de marzo en la mañana)
+        </a>
 
-<div class="cake" id="cake">
-<div class="icing"></div>
-</div>
+        <a class="option"
+           href="https://wa.me/525520289827?text=Hola%20✨%20Quiero%20reservar%20la%20sesión%20(Presencial%20Envigado%20-%20El%20Esmeraldal)%20para%20el%20Sábado%2023%20de%20marzo%20en%20la%20mañana."
+           target="_blank" rel="noopener">
+          Presencial Envigado – El Esmeraldal (Sábado 23 de marzo en la mañana)
+        </a>
 
-<div class="plate"></div>
+        <a class="option"
+           href="https://wa.me/525520289827?text=Hola%20✨%20Quiero%20coordinar%20la%20sesión%20Virtual%20(en%20semana%20después%20de%20las%205%20pm).%20¿Qué%20días%20tienes%20disponibles%3F"
+           target="_blank" rel="noopener">
+          Virtual (por acordar en semana después de las 5 pm)
+        </a>
+      </div>
 
-</div>
+      <div class="btns" style="margin-top:16px;">
+        <button class="ghost" id="moreConfettiBtn">Más confeti 🎉</button>
+      </div>
 
-</div>
+      <div class="signature">
+        Con mucho amor, Saris, Dani, Julli y Vásquez
+      </div>
+    </div>
 
-<div class="btns">
+  </div>
 
-<button class="primary" id="blowBtn">
-Soplar 🎂
-</button>
+  <script>
+    const cake = document.getElementById("cake");
+    const blowBtn = document.getElementById("blowBtn");
+    const skipBtn = document.getElementById("skipBtn");
+    const step2 = document.getElementById("step2");
+    const cakeArea = document.getElementById("cakeArea");
+    const confetti = document.getElementById("confetti");
+    const moreConfettiBtn = document.getElementById("moreConfettiBtn");
 
-<button class="ghost" id="skipBtn">
-Ir directo al regalo →
-</button>
+    let alreadyBlown = false;
 
-</div>
+    function boomConfetti(){
+      confetti.innerHTML = "";
+      const colors = ["#f7e7a6","#d7b35a","#ff7ec2","#ffd6ea","#ffffff","#b9a7ff"];
+      const count = 160;
 
-</div>
+      for(let i=0;i<count;i++){
+        const s=document.createElement("span");
+        const left=Math.random()*100;
+        const size=6+Math.random()*10;
+        const dur=2.6+Math.random()*2.8;
 
+        s.style.left = left+"vw";
+        s.style.width = size+"px";
+        s.style.height = (size*1.4)+"px";
+        s.style.background = colors[Math.floor(Math.random()*colors.length)];
+        s.style.animationDuration = dur+"s";
 
-<div class="card hidden" id="step2" style="margin-top:20px;">
+        confetti.appendChild(s);
+      }
 
-<p>
+      setTimeout(()=> confetti.innerHTML="", 5200);
+    }
 
-Este regalo es para que te tomes un momento de observar y aprender de tu mundo interior.
+    function showGift(){
+      step2.classList.remove("hidden");
+      step2.scrollIntoView({behavior:"smooth", block:"start"});
+    }
 
-<br><br>
+    function blow(){
+      if(!alreadyBlown){
+        alreadyBlown = true;
+        cake.classList.add("blown");
+        boomConfetti();
+        setTimeout(showGift, 600);
+      } else {
+        showGift();
+      }
+    }
 
-En compañía de una astróloga, verás tu revolución solar y lo que el universo tiene preparado para ti este año.
+    blowBtn.onclick = blow;
+    skipBtn.onclick = () => { boomConfetti(); showGift(); };
+    cakeArea.onclick = blow;
 
-</p>
-
-<div class="optionGrid">
-
-<a class="option" href="https://wa.me/525520289827?text=Hola%20quiero%20reservar%20la%20sesion%20del%209%20de%20marzo">
-Presencial Envigado – 9 de marzo
-</a>
-
-<a class="option" href="https://wa.me/525520289827?text=Hola%20quiero%20reservar%20la%20sesion%20del%2023%20de%20marzo">
-Presencial Envigado – 23 de marzo
-</a>
-
-<a class="option" href="https://wa.me/525520289827?text=Hola%20quiero%20coordinar%20la%20sesion%20virtual">
-Virtual (después de 5 pm)
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-<script>
-
-const cake = document.getElementById("cake")
-const blowBtn = document.getElementById("blowBtn")
-const skipBtn = document.getElementById("skipBtn")
-const step2 = document.getElementById("step2")
-
-function blow(){
-
-cake.classList.add("blown")
-
-setTimeout(()=>{
-step2.classList.remove("hidden")
-step2.scrollIntoView({behavior:"smooth"})
-},600)
-
-}
-
-blowBtn.onclick = blow
-skipBtn.onclick = blow
-
-</script>
-
+    moreConfettiBtn?.addEventListener("click", boomConfetti);
+  </script>
 </body>
 </html>
