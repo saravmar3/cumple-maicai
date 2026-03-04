@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Feliz cumple, Maicai 🎂</title>
+  <style>
+    :root{
+      --bg1:#0b1220; --bg2:#1b2a4a;
+      --card:#ffffff10; --stroke:#ffffff22; --text:#f6f7fb;
+      --accent:#62a4ff; --accent2:#ff5ea8;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh; display:grid; place-items:center;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 20% 10%, #4c9aff55, transparent 60%),
+        radial-gradient(900px 600px at 90% 20%, #ff5ea855, transparent 60%),
+        linear-gradient(160deg,var(--bg1),var(--bg2));
+      overflow-x:hidden;
+    }
+    .wrap{width:min(820px,92vw); padding:22px}
+    .card{
+      background:var(--card); border:1px solid var(--stroke); border-radius:24px;
+      padding:26px; box-shadow:0 20px 60px #00000055;
+      backdrop-filter: blur(10px);
+    }
+    h1{margin:0 0 12px; font-size:clamp(28px,4vw,44px); letter-spacing:.2px}
+    p{margin:10px 0; line-height:1.55; font-size:clamp(16px,2.1vw,18px); opacity:.95}
+    .small{font-size:14px; opacity:.8}
+    .section{margin-top:16px}
+    .center{display:grid; place-items:center}
+    .btns{display:flex; gap:12px; flex-wrap:wrap; margin-top:16px}
+    button{
+      border:0; cursor:pointer; border-radius:999px; padding:12px 16px;
+      font-weight:800; font-size:16px;
+      transition: transform .08s ease;
+    }
+    button:active{transform: scale(.98)}
+    .primary{background:var(--accent); color:#071122}
+    .ghost{background:#ffffff14; color:var(--text); border:1px solid var(--stroke)}
+    .hidden{display:none}
+
+    /* Cake scene */
+    .scene{
+      position:relative;
+      width:min(640px, 92vw);
+      aspect-ratio: 16/10;
+      border-radius:22px;
+      border:1px solid var(--stroke);
+      background: radial-gradient(900px 600px at 20% 10%, #ffd16622, transparent 55%),
+                  radial-gradient(700px 450px at 80% 10%, #62a4ff22, transparent 55%),
+                  linear-gradient(180deg, #ffffff10, #00000010);
+      overflow:hidden;
+      padding:14px;
+    }
+
+    /* Simple cake using CSS */
+    .cakeWrap{
+      position:absolute;
+      left:50%; top:54%;
+      transform: translate(-50%,-50%);
+      width:min(360px, 74vw);
+      height:240px;
+    }
+    .plate{
+      position:absolute; left:50%; bottom:18px;
+      transform: translateX(-50%);
+      width:100%; height:26px;
+      background: #ffffff22;
+      border:1px solid var(--stroke);
+      border-radius: 999px;
+      filter: blur(.2px);
+    }
+    .cake{
+      position:absolute; left:50%; bottom:30px;
+      transform: translateX(-50%);
+      width:86%; height:140px;
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, #ffb3d4, #ff7fb6),
+        linear-gradient(90deg, #ffffff18, transparent);
+      border:1px solid #ffffff26;
+      box-shadow: 0 18px 30px #00000040;
+    }
+    .cake:before{
+      content:"";
+      position:absolute; left:0; right:0; top:20px;
+      height:36px;
+      background: linear-gradient(90deg, #6b3b2a, #3c1f18);
+      opacity:.65;
+      border-top:1px solid #ffffff22;
+      border-bottom:1px solid #ffffff22;
+    }
+    .frost{
+      position:absolute; left:50%; top:-18px;
+      transform: translateX(-50%);
+      width:90%; height:34px;
+      border-radius:999px;
+      background: #ffd6ea;
+      border:1px solid #ffffff2a;
+      box-shadow: 0 8px 16px #00000022;
+    }
+
+    .candles{
+      position:absolute; left:50%; top:-44px;
+      transform: translateX(-50%);
+      display:flex; gap:14px;
+      padding:0 10px;
+    }
+    .candle{
+      position:relative;
+      width:16px; height:44px;
+      border-radius:6px;
+      background: linear-gradient(180deg, #62a4ff, #2f66c9);
+      border:1px solid #ffffff22;
+    }
+    .candle:nth-child(2){background: linear-gradient(180deg, #ffd166, #d9a83c)}
+    .candle:nth-child(3){background: linear-gradient(180deg, #ff5ea8, #c83c7e)}
+    .candle:nth-child(4){background: linear-gradient(180deg, #7cf6c4, #3dbb8a)}
+    .candle:nth-child(5){background: linear-gradient(180deg, #b9a7ff, #6b55d9)}
+
+    .flame{
+      position:absolute; left:50%; top:-20px;
+      transform: translateX(-50%);
+      width:14px; height:18px;
+      background: radial-gradient(circle at 30% 30%, #fff7c2, #ffb200 55%, #ff5a00 85%);
+      border-radius: 50% 50% 50% 50%;
+      filter: drop-shadow(0 0 8px #ffcc66aa);
+      animation: flicker .22s infinite alternate;
+      opacity:1;
+    }
+    @keyframes flicker{
+      from { transform: translateX(-50%) rotate(-3deg) scale(1); }
+      to   { transform: translateX(-50%) rotate(3deg) scale(1.05); }
+    }
+    .blown .flame{opacity:0; transition: opacity .35s ease;}
+
+    /* Doll */
+    .doll{
+      position:absolute;
+      left:-40%;
+      bottom:12px;
+      width:220px;
+      height:auto;
+      opacity:0;
+      transform: translateX(0) scale(.98);
+      transition: left 1.2s ease, opacity .6s ease, transform 1.2s ease;
+      filter: drop-shadow(0 12px 26px #00000055);
+    }
+    .doll.show{
+      left:10%;
+      opacity:1;
+      transform: translateX(0) scale(1);
+    }
+
+    /* speech */
+    .puff{
+      position:absolute;
+      left:30%;
+      bottom:130px;
+      background:#ffffff18;
+      border:1px solid var(--stroke);
+      padding:10px 12px;
+      border-radius:999px;
+      opacity:0;
+      transform: translateY(8px);
+      transition: opacity .25s ease, transform .25s ease;
+      font-weight:800;
+    }
+    .puff.show{opacity:1; transform: translateY(0);}
+
+    /* Confetti */
+    .confetti{position:fixed; inset:0; pointer-events:none; overflow:hidden;}
+    .confetti span{
+      position:absolute; top:-10vh;
+      width:10px; height:16px; border-radius:3px;
+      animation: fall linear forwards; opacity:.95;
+    }
+    @keyframes fall{to{transform:translateY(120vh) rotate(720deg)}}
+
+    /* Options */
+    .optionGrid{
+      display:grid;
+      gap:12px;
+      margin-top:14px;
+    }
+    .option{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:14px 14px;
+      border-radius:18px;
+      border:1px solid var(--stroke);
+      background:#ffffff10;
+      text-decoration:none;
+      color:var(--text);
+    }
+    .option strong{display:block}
+    .tag{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:800;
+      background:#ffffff12;
+      border:1px solid var(--stroke);
+      margin-top:6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="confetti" id="confetti"></div>
+
+  <div class="wrap">
+    <!-- SECTION 1 -->
+    <div class="card" id="step1">
+      <h1>Hoy cumpleaños el alma más linda</h1>
+      <p class="small">Para <strong>Maicai</strong> ✨</p>
+
+      <div class="section center">
+        <div class="scene" aria-label="Torta de cumpleaños">
+          <img
+            class="doll"
+            id="doll"
+            src="doll.png"
+            alt="Muñequita estilo dibujo inspirada en Maicai"
+            onerror="this.style.display='none';"
+          />
+          <div class="puff" id="puff">Fuuuu!</div>
+
+          <div class="cakeWrap" id="cakeWrap">
+            <div class="plate"></div>
+            <div class="cake" id="cake">
+              <div class="frost"></div>
+              <div class="candles" id="candles">
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="btns">
+          <button class="primary" id="blowBtn">Sopla 🎂</button>
+          <button class="ghost" id="skipBtn">Ya soplé, muéstrame el regalo →</button>
+        </div>
+        <p class="small">Tip: si quieres la muñequita, pon un archivo llamado <strong>doll.png</strong> en la misma carpeta.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="card hidden" id="step2" style="margin-top:16px;">
+      <p>
+        Este regalo es para que te tomes un momento de observar y aprender de tu mundo interior.
+        <br/><br/>
+        En compañía de una astróloga, verás tu revolución solar y lo que el universo tiene preparado para ti este año.
+      </p>
+
+      <div class="section">
+        <p class="small" style="margin-bottom:6px;"><strong>Elige un horario:</strong></p>
+
+        <div class="optionGrid">
+          <!-- Cambia los href por lo que prefieras: WhatsApp, Calendly, mailto, etc -->
+          <a class="option" href="https://wa.me/COLOCA_AQUI_EL_NUMERO?text=Hola%20quiero%20reservar%20Presencial%20Envigado%20-%20S%C3%A1bado%209%20de%20marzo%20en%20la%20ma%C3%B1ana" target="_blank" rel="noopener">
+            <div>📍</div>
+            <div>
+              <strong>Presencial en Envigado – El Esmeraldal</strong>
+              Sábado 9 de marzo en la mañana
+              <div class="tag">Reservar</div>
+            </div>
+          </a>
+
+          <a class="option" href="https://wa.me/COLOCA_AQUI_EL_NUMERO?text=Hola%20quiero%20reservar%20Presencial%20Envigado%20-%20S%C3%A1bado%2023%20de%20marzo%20en%20la%20ma%C3%B1ana" target="_blank" rel="noopener">
+            <div>📍</div>
+            <div>
+              <strong>Presencial en Envigado – El Esmeraldal</strong>
+              Sábado 23 de marzo en la mañana
+              <div class="tag">Reservar</div>
+            </div>
+          </a>
+
+          <a class="option" href="mailto:TU_CORREO@EJEMPLO.COM?subject=Reserva%20Revoluci%C3%B3n%20Solar%20-%20Maicai&body=Hola%2C%0A%0AMe%20gustar%C3%ADa%20agendar%20la%20opci%C3%B3n%20Virtual%20(por%20acordar%20en%20semana%20despu%C3%A9s%20de%20las%205%20pm).%0A%0AGracias%21" target="_blank" rel="noopener">
+            <div>💻</div>
+            <div>
+              <strong>Virtual</strong>
+              Por acordar en semana después de las 5 pm
+              <div class="tag">Coordinar</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="btns" style="margin-top:18px;">
+          <button class="ghost" id="replayBtn">Otra vez confetti 🎉</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const blowBtn = document.getElementById("blowBtn");
+    const skipBtn = document.getElementById("skipBtn");
+    const step2 = document.getElementById("step2");
+    const cake = document.getElementById("cake");
+    const doll = document.getElementById("doll");
+    const puff = document.getElementById("puff");
+    const confetti = document.getElementById("confetti");
+    const replayBtn = document.getElementById("replayBtn");
+
+    let blown = false;
+
+    function boomConfetti() {
+      confetti.innerHTML = "";
+      const colors = ["#62a4ff","#ffd166","#ff5ea8","#7cf6c4","#ffffff","#b9a7ff"];
+      const count = 130;
+      for (let i=0;i<count;i++){
+        const s=document.createElement("span");
+        const left=Math.random()*100;
+        const size=6+Math.random()*10;
+        const dur=2.8+Math.random()*2.4;
+        s.style.left = left+"vw";
+        s.style.width = size+"px";
+        s.style.height = (size*1.4)+"px";
+        s.style.background = colors[Math.floor(Math.random()*colors.length)];
+        s.style.animationDuration = dur+"s";
+        confetti.appendChild(s);
+      }
+      setTimeout(()=> confetti.innerHTML="", 5200);
+    }
+
+    function revealGift(){
+      step2.classList.remove("hidden");
+      step2.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    blowBtn.addEventListener("click", ()=>{
+      if (blown) { revealGift(); return; }
+      blown = true;
+
+      // muñequita entra (si existe doll.png)
+      doll.classList.add("show");
+
+      setTimeout(()=> puff.classList.add("show"), 650);
+
+      // apaga velas
+      setTimeout(()=> cake.classList.add("blown"), 900);
+
+      // confetti y mostrar sección final
+      setTimeout(()=> {
+        boomConfetti();
+        revealGift();
+      }, 1350);
+    });
+
+    skipBtn.addEventListener("click", ()=>{
+      boomConfetti();
+      revealGift();
+    });
+
+    replayBtn?.addEventListener("click", boomConfetti);
+  </script>
+</body>
+</html>
