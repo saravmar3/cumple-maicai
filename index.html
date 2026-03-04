@@ -8,17 +8,75 @@
   <link href="https://fonts.googleapis.com/css2?family=Allura&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
+    :root{
+      --windAngle: 0deg;
+      --windScale: 1;
+    }
+
+    *{box-sizing:border-box}
+
     body{
       margin:0;
       font-family:'Quicksand', sans-serif;
-      background:linear-gradient(160deg,#0c1124,#1b2548);
       color:white;
       display:flex;
       justify-content:center;
       padding:40px;
+      overflow-x:hidden;
+      background: radial-gradient(900px 600px at 30% 20%, rgba(40,90,255,.25), transparent 60%),
+                  radial-gradient(900px 700px at 80% 40%, rgba(0,180,255,.15), transparent 60%),
+                  linear-gradient(180deg,#020617,#061635 55%, #0b2b5b);
     }
 
-    .wrap{max-width:900px;width:100%;}
+    /* Starfield layers (no constellations) */
+    body:before, body:after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-repeat:repeat;
+      opacity:.9;
+      mix-blend-mode:screen;
+    }
+
+    /* small stars */
+    body:before{
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.95) 60%, transparent 61%),
+        radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,.85) 60%, transparent 61%),
+        radial-gradient(1px 1px at 55% 35%, rgba(255,255,255,.9) 60%, transparent 61%),
+        radial-gradient(1px 1px at 80% 60%, rgba(255,255,255,.8) 60%, transparent 61%),
+        radial-gradient(1px 1px at 90% 15%, rgba(255,255,255,.7) 60%, transparent 61%),
+        radial-gradient(1px 1px at 15% 85%, rgba(255,255,255,.75) 60%, transparent 61%),
+        radial-gradient(1px 1px at 42% 12%, rgba(255,255,255,.85) 60%, transparent 61%),
+        radial-gradient(1px 1px at 63% 78%, rgba(255,255,255,.78) 60%, transparent 61%),
+        radial-gradient(1px 1px at 73% 48%, rgba(255,255,255,.7) 60%, transparent 61%),
+        radial-gradient(1px 1px at 22% 50%, rgba(255,255,255,.65) 60%, transparent 61%);
+      background-size: 420px 420px;
+      animation: twinkle 5.5s ease-in-out infinite;
+      opacity:.55;
+    }
+
+    /* bigger stars */
+    body:after{
+      background-image:
+        radial-gradient(2px 2px at 12% 28%, rgba(255,255,255,.95) 55%, transparent 56%),
+        radial-gradient(2px 2px at 68% 22%, rgba(255,255,255,.9) 55%, transparent 56%),
+        radial-gradient(2px 2px at 40% 76%, rgba(255,255,255,.85) 55%, transparent 56%),
+        radial-gradient(2px 2px at 82% 62%, rgba(255,255,255,.9) 55%, transparent 56%),
+        radial-gradient(2px 2px at 92% 34%, rgba(255,255,255,.8) 55%, transparent 56%);
+      background-size: 760px 760px;
+      animation: twinkle 7.5s ease-in-out infinite reverse;
+      opacity:.35;
+    }
+
+    @keyframes twinkle{
+      0%,100%{filter:brightness(1) blur(.0px)}
+      50%{filter:brightness(1.2) blur(.15px)}
+    }
+
+    .wrap{max-width:900px;width:100%}
+
     .card{
       background:rgba(255,255,255,0.08);
       border-radius:24px;
@@ -26,6 +84,21 @@
       backdrop-filter:blur(12px);
       box-shadow:0 20px 60px rgba(0,0,0,0.5);
       border:1px solid rgba(255,255,255,0.10);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card:after{
+      content:"";
+      position:absolute; inset:-2px;
+      border-radius:26px;
+      padding:2px;
+      background: linear-gradient(135deg, rgba(247,231,166,.40), transparent 35%, rgba(255,182,217,.35) 70%, transparent);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events:none;
+      opacity:.9;
     }
 
     h1{
@@ -37,9 +110,12 @@
       -webkit-background-clip:text;
       background-clip:text;
       color:transparent;
+      text-shadow:0 12px 30px rgba(0,0,0,.45);
+      line-height:1.05;
     }
 
-    .sub{text-align:center;margin-bottom:20px;opacity:.95}
+    .sub{text-align:center;margin-bottom:20px;opacity:.95;font-weight:700}
+
     .scene{
       position:relative;
       height:350px;
@@ -52,18 +128,41 @@
       overflow:hidden;
     }
 
-    /* Simple constellations (decor) */
-    .stars{
-      position:absolute; inset:0; pointer-events:none; opacity:.5;
+    /* Soft nebula glow in scene */
+    .scene:before{
+      content:"";
+      position:absolute; inset:0;
       background:
-        radial-gradient(2px 2px at 15% 25%, rgba(247,231,166,.9) 40%, transparent 41%),
-        radial-gradient(2px 2px at 75% 30%, rgba(247,231,166,.8) 40%, transparent 41%),
-        radial-gradient(1.5px 1.5px at 30% 70%, rgba(255,214,234,.8) 40%, transparent 41%),
-        radial-gradient(1.5px 1.5px at 85% 65%, rgba(255,214,234,.6) 40%, transparent 41%);
-    }
-    .line{
-      position:absolute; height:1px; background:rgba(247,231,166,.35); transform-origin:left center;
+        radial-gradient(500px 300px at 30% 35%, rgba(255,182,217,.18), transparent 60%),
+        radial-gradient(500px 300px at 70% 45%, rgba(247,231,166,.14), transparent 60%);
       pointer-events:none;
+      opacity:.9;
+    }
+
+    /* Shooting stars */
+    .meteors{
+      position:absolute; inset:0;
+      pointer-events:none;
+      overflow:hidden;
+    }
+    .meteor{
+      position:absolute;
+      top:-20%;
+      left:-20%;
+      width:220px;
+      height:2px;
+      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.95), rgba(255,255,255,0));
+      transform: rotate(25deg);
+      opacity:0;
+      filter: drop-shadow(0 0 8px rgba(255,255,255,.35));
+    }
+    .meteor.go{
+      animation: meteorFly 1.25s ease-out forwards;
+    }
+    @keyframes meteorFly{
+      0%{ opacity:0; transform: translate(-20vw,-10vh) rotate(25deg); }
+      10%{ opacity:1; }
+      100%{ opacity:0; transform: translate(120vw,80vh) rotate(25deg); }
     }
 
     /* cake */
@@ -84,6 +183,8 @@
       background:linear-gradient(#ffe0a3,#f0c77f);
       border-radius:30px;
       box-shadow:0 18px 40px rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.22);
+      overflow:hidden;
     }
 
     .icing{
@@ -114,10 +215,10 @@
       box-shadow:0 12px 26px rgba(0,0,0,.25);
     }
 
-    /* candles */
+    /* candles (10) */
     .candles{
       position:absolute;
-      top:0px;
+      top:6px;
       left:50%;
       transform:translateX(-50%);
       width:92%;
@@ -137,9 +238,12 @@
       position:relative;
       box-shadow:0 10px 18px rgba(0,0,0,.25);
       border:1px solid rgba(255,255,255,.22);
+
+      transform-origin: 50% 100%;
+      transform: rotate(var(--windAngle)) scaleY(var(--windScale));
+      transition: transform .08s linear;
     }
 
-    /* alternate colors */
     .candle:nth-child(3n+2){ background:linear-gradient(#f7e7a6,#d7b35a); }
     .candle:nth-child(3n){ background:linear-gradient(#b9a7ff,#7e66ff); }
 
@@ -158,7 +262,7 @@
       position:absolute;
       top:-24px;
       left:50%;
-      transform:translateX(-50%);
+      transform:translateX(-50%) rotate(calc(var(--windAngle) * 1.6));
       width:16px;
       height:22px;
       border-radius:50% 50% 55% 55%;
@@ -168,11 +272,12 @@
     }
 
     @keyframes flicker{
-      from{ transform:translateX(-50%) scale(1); }
-      to{ transform:translateX(-50%) scale(1.15); }
+      from{ transform:translateX(-50%) scale(1) rotate(calc(var(--windAngle) * 1.6)); }
+      to{ transform:translateX(-50%) scale(1.15) rotate(calc(var(--windAngle) * 1.6)); }
     }
 
-    .blown .flame{ display:none; }
+    /* IMPORTANT: candles get blown */
+    #candles.blown .flame{ display:none; }
 
     /* buttons */
     .btns{
@@ -254,22 +359,18 @@
   <div class="confetti" id="confetti"></div>
 
   <div class="wrap">
-
     <div class="card" id="step1">
       <h1>Hoy cumple años<br>el alma más linda</h1>
       <p class="sub">Para <b>Maicai</b> ✨</p>
 
       <div class="scene">
-        <div class="stars"></div>
+        <div class="meteors" id="meteors">
+          <div class="meteor" id="meteor1" style="left:-20%; top:-10%"></div>
+          <div class="meteor" id="meteor2" style="left:-10%; top:-25%"></div>
+        </div>
 
-        <!-- decorative constellation-ish lines -->
-        <div class="line" style="left:12%; top:28%; width:220px; transform:rotate(18deg)"></div>
-        <div class="line" style="left:72%; top:32%; width:150px; transform:rotate(-12deg)"></div>
-        <div class="line" style="left:18%; top:76%; width:180px; transform:rotate(-18deg)"></div>
-
-        <div class="cakeWrap" id="cakeArea" title="Sopla haciendo click">
+        <div class="cakeWrap" id="cakeArea" title="Haz click para soplar 🎂">
           <div class="candles" id="candles">
-            <!-- 10 candles -->
             <div class="candle"><div class="wick"></div><div class="flame"></div></div>
             <div class="candle"><div class="wick"></div><div class="flame"></div></div>
             <div class="candle"><div class="wick"></div><div class="flame"></div></div>
@@ -285,7 +386,6 @@
           <div class="cake" id="cake">
             <div class="icing"></div>
           </div>
-
           <div class="plate"></div>
         </div>
       </div>
@@ -313,7 +413,7 @@
         </a>
 
         <a class="option"
-           href="https://wa.me/525520289827?text=Hola%20✨%20Quiero%20reservar%20la%20sesión%20(Presencial%20Envigado%20-%20El%20Esmeraldal)%20para%20el%20Sábado%2023%20de%20marzo%20en%20la%20mañana."
+           href="https://wa.me/525520289827?text=Hola%20✨%20Quiero%20reservar%20la%20sesión%20(Presencial%20Envigado%20-%20El%20Esmeraldal)%20para%20el%20Sábado%2023%20de%20marzo%20en la%20mañana."
            target="_blank" rel="noopener">
           Presencial Envigado – El Esmeraldal (Sábado 23 de marzo en la mañana)
         </a>
@@ -333,17 +433,19 @@
         Con mucho amor, Saris, Dani, Julli y Vásquez
       </div>
     </div>
-
   </div>
 
   <script>
-    const cake = document.getElementById("cake");
+    const candles = document.getElementById("candles");
     const blowBtn = document.getElementById("blowBtn");
     const skipBtn = document.getElementById("skipBtn");
     const step2 = document.getElementById("step2");
     const cakeArea = document.getElementById("cakeArea");
     const confetti = document.getElementById("confetti");
     const moreConfettiBtn = document.getElementById("moreConfettiBtn");
+
+    const meteor1 = document.getElementById("meteor1");
+    const meteor2 = document.getElementById("meteor2");
 
     let alreadyBlown = false;
 
@@ -357,17 +459,24 @@
         const left=Math.random()*100;
         const size=6+Math.random()*10;
         const dur=2.6+Math.random()*2.8;
-
         s.style.left = left+"vw";
         s.style.width = size+"px";
         s.style.height = (size*1.4)+"px";
         s.style.background = colors[Math.floor(Math.random()*colors.length)];
         s.style.animationDuration = dur+"s";
-
         confetti.appendChild(s);
       }
-
       setTimeout(()=> confetti.innerHTML="", 5200);
+    }
+
+    function meteorBurst(){
+      meteor1.classList.remove("go");
+      meteor2.classList.remove("go");
+      void meteor1.offsetWidth;
+      meteor1.classList.add("go");
+      setTimeout(()=>{
+        meteor2.classList.add("go");
+      }, 160);
     }
 
     function showGift(){
@@ -378,19 +487,44 @@
     function blow(){
       if(!alreadyBlown){
         alreadyBlown = true;
-        cake.classList.add("blown");
+        candles.classList.add("blown"); // ✅ this turns flames off
+        meteorBurst();
         boomConfetti();
-        setTimeout(showGift, 600);
+        setTimeout(showGift, 650);
       } else {
         showGift();
       }
     }
 
     blowBtn.onclick = blow;
-    skipBtn.onclick = () => { boomConfetti(); showGift(); };
     cakeArea.onclick = blow;
-
+    skipBtn.onclick = () => { boomConfetti(); showGift(); };
     moreConfettiBtn?.addEventListener("click", boomConfetti);
+
+    // Wind effect: candles and flames tilt with cursor movement
+    function setWindFromEvent(e){
+      const rect = cakeArea.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;   // 0..1
+      const y = (e.clientY - rect.top) / rect.height;   // 0..1
+
+      const angle = (x - 0.5) * 10; // -5..+5 deg
+      const squeeze = 1 - Math.min(0.18, Math.abs(y - 0.35) * 0.25);
+      document.documentElement.style.setProperty("--windAngle", `${angle}deg`);
+      document.documentElement.style.setProperty("--windScale", `${squeeze}`);
+    }
+
+    cakeArea.addEventListener("mousemove", setWindFromEvent);
+    cakeArea.addEventListener("mouseenter", (e)=> setWindFromEvent(e));
+    cakeArea.addEventListener("mouseleave", ()=>{
+      document.documentElement.style.setProperty("--windAngle", `0deg`);
+      document.documentElement.style.setProperty("--windScale", `1`);
+    });
+
+    cakeArea.addEventListener("touchmove", (ev)=>{
+      const t = ev.touches?.[0];
+      if(!t) return;
+      setWindFromEvent(t);
+    }, {passive:true});
   </script>
 </body>
 </html>
