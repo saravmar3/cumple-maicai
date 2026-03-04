@@ -1,590 +1,323 @@
 <!doctype html>
 <html lang="es">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Maicai ✨</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<title>Cumple Maicai ✨</title>
 
-  <style>
-    :root{
-      --rose1:#ffb6d9;
-      --rose2:#ff7ec2;
-      --rose3:#ffd6ea;
-      --night:#0b1020;
-      --ink:#fff7fb;
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 
-      --gold1:#f7e7a6;
-      --gold2:#d7b35a;
-      --gold3:#b8892a;
+<style>
 
-      --card:#ffffff12;
-      --stroke:#ffffff22;
-      --shadow:#00000055;
-
-      --windX: 0deg;
-      --windS: 1;
-    }
-
-    *{box-sizing:border-box}
-    body{
-      margin:0; min-height:100vh; display:grid; place-items:center;
-      font-family:"Quicksand", system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color:var(--ink);
-      background:
-        radial-gradient(900px 600px at 10% 10%, #ffb6d955, transparent 60%),
-        radial-gradient(900px 700px at 90% 20%, #f7e7a633, transparent 60%),
-        radial-gradient(1200px 800px at 60% 90%, #ff7ec233, transparent 60%),
-        linear-gradient(160deg, #070a16, #101a38 60%, #0a0f22);
-      overflow-x:hidden;
-    }
-
-    /* Stars */
-    body:before{
-      content:"";
-      position:fixed; inset:0;
-      background-image:
-        radial-gradient(2px 2px at 10% 20%, #ffffffaa 40%, transparent 41%),
-        radial-gradient(1.5px 1.5px at 30% 70%, #ffffff99 40%, transparent 41%),
-        radial-gradient(1.6px 1.6px at 55% 35%, #ffffff88 40%, transparent 41%),
-        radial-gradient(1.2px 1.2px at 80% 60%, #ffffff88 40%, transparent 41%),
-        radial-gradient(1px 1px at 90% 15%, #ffffff77 40%, transparent 41%),
-        radial-gradient(1.2px 1.2px at 15% 85%, #ffffff77 40%, transparent 41%);
-      opacity:.35;
-      pointer-events:none;
-      filter: blur(.2px);
-    }
-
-    .wrap{width:min(920px,92vw); padding:22px}
-    .card{
-      background: linear-gradient(180deg, #ffffff14, #ffffff0b);
-      border:1px solid var(--stroke);
-      border-radius:26px;
-      padding:26px;
-      box-shadow:0 24px 70px var(--shadow);
-      backdrop-filter: blur(10px);
-      position:relative;
-      overflow:hidden;
-    }
-    .card:after{
-      content:"";
-      position:absolute; inset:-2px;
-      border-radius:28px;
-      padding:2px;
-      background: linear-gradient(135deg, #f7e7a655, transparent 40%, #ffb6d955 70%, transparent);
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events:none;
-      opacity:.85;
-    }
-
-    h1{
-      margin:0 0 10px;
-      font-family:"Allura", cursive;
-      font-weight:400;
-      font-size:clamp(40px,5.2vw,70px);
-      line-height:1.05;
-      text-align:center;
-      background: linear-gradient(180deg, var(--gold1), var(--gold2) 55%, var(--gold3));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      text-shadow: 0 10px 26px #00000055;
-    }
-    .sub{
-      text-align:center;
-      margin:0 0 18px;
-      opacity:.9;
-      font-weight:700;
-      letter-spacing:.3px;
-    }
-    p{margin:10px 0; line-height:1.6; font-size:clamp(16px,2.1vw,18px); opacity:.96}
-    .small{font-size:14px; opacity:.8}
-    .section{margin-top:14px}
-    .center{display:grid; place-items:center}
-
-    .btns{display:flex; gap:12px; flex-wrap:wrap; margin-top:14px; justify-content:center}
-    button{
-      border:0; cursor:pointer; border-radius:999px; padding:12px 16px;
-      font-weight:800; font-size:16px;
-      transition: transform .08s ease, filter .2s ease;
-    }
-    button:active{transform:scale(.98)}
-    .primary{
-      background: linear-gradient(180deg, var(--gold1), var(--gold2));
-      color:#1a1022;
-      box-shadow: 0 10px 22px #00000045;
-    }
-    .primary:hover{filter: brightness(1.03)}
-    .ghost{background:#ffffff12; color:var(--ink); border:1px solid var(--stroke)}
-    .hidden{display:none}
-
-    /* Scene */
-    .scene{
-      position:relative;
-      width:min(720px, 92vw);
-      aspect-ratio: 16/10;
-      border-radius:24px;
-      border:1px solid var(--stroke);
-      background:
-        radial-gradient(700px 500px at 20% 20%, #ffd6ea55, transparent 62%),
-        radial-gradient(700px 500px at 85% 25%, #f7e7a633, transparent 60%),
-        linear-gradient(180deg, #ffffff10, #00000012);
-      overflow:hidden;
-      padding:16px;
-    }
-
-    /* Subtle animated constellation layer (SVG) */
-    .constellations{
-      position:absolute; inset:0;
-      opacity:.6;
-      pointer-events:none;
-      filter: drop-shadow(0 0 10px #f7e7a622);
-      animation: floaty 6s ease-in-out infinite;
-    }
-    @keyframes floaty{
-      0%,100%{transform: translateY(0px)}
-      50%{transform: translateY(-6px)}
-    }
-    .c-line{stroke:#f7e7a677; stroke-width:1.2}
-    .c-star{fill:#f7e7a6aa}
-    .c-star2{fill:#ffd6ea88}
-
-    /* Aura */
-    .aura{
-      position:absolute;
-      left:50%; top:55%;
-      transform:translate(-50%,-50%);
-      width:460px; height:460px;
-      background: radial-gradient(circle, #ff7ec233 0%, transparent 58%),
-                  radial-gradient(circle, #f7e7a622 0%, transparent 62%);
-      filter: blur(1px);
-      opacity:.95;
-      pointer-events:none;
-    }
-
-    /* Cake wrapper with “blowing mouth” cursor */
-    .cakeWrap{
-      position:absolute;
-      left:50%; top:56%;
-      transform: translate(-50%,-50%);
-      width:min(440px, 88vw);
-      height:300px;
-      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Ctext y='46' font-size='44'%3E%F0%9F%91%84%3C/text%3E%3C/svg%3E") 16 16, pointer;
-      user-select:none;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .plate{
-      position:absolute; left:50%; bottom:18px;
-      transform: translateX(-50%);
-      width:92%; height:30px;
-      border-radius:999px;
-      background: linear-gradient(180deg, #ffffff33, #ffffff12);
-      border:1px solid #ffffff26;
-      box-shadow: 0 14px 24px #00000030;
-    }
-
-    .cake{
-      position:absolute; left:50%; bottom:44px;
-      transform: translateX(-50%);
-      width:86%; height:175px;
-      border-radius: 36px;
-      background:
-        radial-gradient(100px 70px at 20% 30%, #ffffff18, transparent 55%),
-        radial-gradient(140px 90px at 80% 20%, #ffffff12, transparent 60%),
-        linear-gradient(180deg, #ffe4b8, #ffd48c);
-      border:1px solid #ffffff22;
-      box-shadow: 0 22px 36px #00000035;
-      overflow:hidden;
-    }
-
-    .icing{
-      position:absolute; left:0; right:0; top:0;
-      height:74px;
-      background: linear-gradient(180deg, #ff86c9, #ff5fb0);
-      border-bottom:1px solid #ffffff22;
-      clip-path: polygon(
-        0% 0%, 100% 0%, 100% 65%,
-        92% 70%, 86% 60%, 78% 76%, 70% 58%,
-        62% 78%, 54% 60%, 46% 74%, 38% 58%,
-        30% 78%, 22% 60%, 14% 74%, 6% 58%,
-        0% 68%
-      );
-      box-shadow: inset 0 -10px 18px #00000014;
-    }
-
-    /* Candles */
-    .candles{
-  position:absolute; left:50%; top:-56px;
-  transform: translateX(-50%);
-  display:flex; gap:18px;
-  padding:0 10px;
-  z-index: 5;
+body{
+margin:0;
+font-family:Quicksand;
+background:linear-gradient(160deg,#0c1124,#1b2548);
+color:white;
+display:flex;
+justify-content:center;
+padding:40px;
 }
 
-    .candle{
-      position:relative;
-      width:16px; height:56px;
-      border-radius:10px;
-      background:
-        linear-gradient(90deg, #ffffff66, transparent 35%),
-        linear-gradient(180deg, #ffd6ea, #ffb6d9 55%, #ff7ec2);
-      border:1px solid #ffffff30;
-      box-shadow: 0 10px 18px #00000030;
+.wrap{
+max-width:900px;
+width:100%;
+}
 
-      /* Wind */
-      transform-origin: 50% 100%;
-      transform: rotate(var(--windX)) scaleY(var(--windS));
-      transition: transform .08s linear;
-    }
-    .candle:nth-child(2){
-      background:
-        linear-gradient(90deg, #ffffff66, transparent 35%),
-        linear-gradient(180deg, #f7e7a6, #d7b35a 60%, #b8892a);
-    }
-    .candle:nth-child(3){
-      background:
-        linear-gradient(90deg, #ffffff66, transparent 35%),
-        linear-gradient(180deg, #b9a7ff, #7e66ff 60%, #4c3bd9);
-    }
+.card{
+background:rgba(255,255,255,0.08);
+border-radius:24px;
+padding:30px;
+backdrop-filter:blur(12px);
+box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
 
-    .wick{
-      position:absolute; left:50%; top:-8px;
-      transform: translateX(-50%);
-      width:3px; height:10px; border-radius:2px;
-      background:#2a1b14;
-      opacity:.8;
-    }
+h1{
+font-family:Allura;
+font-size:64px;
+text-align:center;
+margin:0 0 10px 0;
+background:linear-gradient(#f7e7a6,#d7b35a);
+-webkit-background-clip:text;
+color:transparent;
+}
 
-    .flame{
-      position:absolute; left:50%; top:-28px;
-      transform: translateX(-50%) rotate(calc(var(--windX) * 1.6));
-      width:18px; height:26px;
-      background:
-        radial-gradient(circle at 35% 35%, #fff6c7 0%, #ffd166 35%, #ff9a1f 60%, #ff4a00 88%);
-      border-radius: 50% 50% 55% 55%;
-      filter: drop-shadow(0 0 10px #ffd166aa);
-      animation: flicker .18s infinite alternate;
-      opacity:1;
-      transform-origin: 50% 100%;
-      transition: transform .08s linear, opacity .35s ease;
-    }
-    @keyframes flicker{
-      from { filter: drop-shadow(0 0 9px #ffd166aa); }
-      to   { filter: drop-shadow(0 0 14px #ffd166cc); }
-    }
+.sub{
+text-align:center;
+margin-bottom:20px;
+}
 
-    .blown .flame{opacity:0}
+.scene{
+position:relative;
+height:350px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
 
-    .smoke{
-      position:absolute; left:50%; top:-34px;
-      transform: translateX(-50%);
-      width:40px; height:40px;
-      opacity:0;
-      filter: blur(.2px);
-    }
-    .blown .smoke{
-      opacity:1;
-      animation: smokeUp 1.6s ease forwards;
-    }
-    @keyframes smokeUp{
-      0%{ transform:translateX(-50%) translateY(4px) scale(.9); opacity:0;}
-      15%{opacity:.9}
-      100%{ transform:translateX(-50%) translateY(-40px) scale(1.1); opacity:0;}
-    }
+/* cake */
 
-    /* Astral wave burst when blowing */
-    .wave{
-      position:absolute;
-      left:50%; top:62%;
-      width:10px; height:10px;
-      transform: translate(-50%,-50%);
-      border-radius:999px;
-      border:1px solid #f7e7a699;
-      opacity:0;
-      pointer-events:none;
-      box-shadow: 0 0 0 0 #ff7ec244;
-    }
-    .wave.go{
-      animation: waveOut 1.2s ease-out forwards;
-    }
-    @keyframes waveOut{
-      0%{ opacity:0; transform:translate(-50%,-50%) scale(.2); box-shadow:0 0 0 0 #ff7ec244; }
-      15%{ opacity:1; }
-      100%{
-        opacity:0;
-        transform:translate(-50%,-50%) scale(22);
-        box-shadow:0 0 0 24px #ff7ec211;
-      }
-    }
+.cakeWrap{
+position:relative;
+width:380px;
+height:260px;
+}
 
-    /* Confetti */
-    .confetti{position:fixed; inset:0; pointer-events:none; overflow:hidden;}
-    .confetti span{
-      position:absolute; top:-10vh;
-      width:10px; height:16px; border-radius:3px;
-      animation: fall linear forwards; opacity:.95;
-    }
-    @keyframes fall{to{transform:translateY(120vh) rotate(720deg)}}
+.cake{
+position:absolute;
+bottom:40px;
+width:100%;
+height:160px;
+background:linear-gradient(#ffe0a3,#f0c77f);
+border-radius:30px;
+}
 
-    .note{
-      text-align:center;
-      font-size:13px;
-      opacity:.78;
-      margin-top:10px;
-    }
+.icing{
+position:absolute;
+top:0;
+width:100%;
+height:60px;
+background:#ff67b5;
+clip-path:polygon(
+0 0,
+100% 0,
+100% 70%,
+92% 80%,
+84% 65%,
+76% 85%,
+68% 65%,
+60% 85%,
+52% 65%,
+44% 85%,
+36% 65%,
+28% 85%,
+20% 65%,
+12% 80%,
+0% 70%
+);
+}
 
-    /* Options */
-    .optionGrid{display:grid; gap:12px; margin-top:14px;}
-    .option{
-      display:flex; gap:10px; align-items:flex-start;
-      padding:14px;
-      border-radius:18px;
-      border:1px solid var(--stroke);
-      background: linear-gradient(180deg, #ffffff12, #ffffff08);
-      text-decoration:none;
-      color:var(--ink);
-      transition: transform .08s ease, border-color .2s ease;
-    }
-    .option:hover{transform: translateY(-1px); border-color:#f7e7a655}
-    .option strong{display:block; font-weight:800}
-    .tag{
-      display:inline-block;
-      padding:6px 10px;
-      border-radius:999px;
-      font-size:13px;
-      font-weight:900;
-      background: linear-gradient(180deg, #f7e7a633, #ffffff10);
-      border:1px solid #f7e7a655;
-      margin-top:6px;
-    }
-  </style>
+/* plate */
+
+.plate{
+position:absolute;
+bottom:10px;
+width:100%;
+height:28px;
+background:rgba(255,255,255,0.2);
+border-radius:40px;
+}
+
+/* candles */
+
+.candles{
+position:absolute;
+top:10px;
+width:100%;
+display:flex;
+justify-content:center;
+gap:20px;
+z-index:10;
+}
+
+.candle{
+width:16px;
+height:60px;
+border-radius:10px;
+background:linear-gradient(#ffd6ea,#ff8ccf);
+position:relative;
+}
+
+.candle:nth-child(2){
+background:linear-gradient(#f7e7a6,#d7b35a);
+}
+
+.candle:nth-child(3){
+background:linear-gradient(#b9a7ff,#7e66ff);
+}
+
+.flame{
+position:absolute;
+top:-22px;
+left:50%;
+transform:translateX(-50%);
+width:16px;
+height:22px;
+border-radius:50%;
+background:radial-gradient(circle,#fff6c7,#ff9a1f);
+box-shadow:0 0 12px #ffb300;
+animation:flicker .15s infinite alternate;
+}
+
+@keyframes flicker{
+from{transform:translateX(-50%) scale(1);}
+to{transform:translateX(-50%) scale(1.2);}
+}
+
+.blown .flame{
+display:none;
+}
+
+/* buttons */
+
+.btns{
+margin-top:20px;
+display:flex;
+justify-content:center;
+gap:12px;
+}
+
+button{
+padding:12px 20px;
+border-radius:40px;
+border:none;
+font-weight:700;
+cursor:pointer;
+}
+
+.primary{
+background:linear-gradient(#f7e7a6,#d7b35a);
+}
+
+.ghost{
+background:rgba(255,255,255,0.15);
+color:white;
+}
+
+/* step2 */
+
+.hidden{
+display:none;
+}
+
+.optionGrid{
+margin-top:20px;
+display:grid;
+gap:10px;
+}
+
+.option{
+background:rgba(255,255,255,0.08);
+padding:16px;
+border-radius:14px;
+text-decoration:none;
+color:white;
+}
+
+</style>
 </head>
 
 <body>
-  <div class="confetti" id="confetti"></div>
 
-  <div class="wrap">
-    <!-- STEP 1 -->
-    <div class="card" id="step1">
-      <h1>Hoy cumple años<br/>el alma más linda</h1>
-      <p class="sub">Para <strong>Maicai</strong> ✨</p>
+<div class="wrap">
 
-      <div class="section center">
-        <div class="scene" id="scene">
-          <!-- Constellations SVG -->
-          <svg class="constellations" viewBox="0 0 1000 700" preserveAspectRatio="none" aria-hidden="true">
-            <circle class="c-star" cx="160" cy="120" r="3"/><circle class="c-star2" cx="240" cy="170" r="2.2"/>
-            <circle class="c-star" cx="320" cy="135" r="2.6"/><circle class="c-star2" cx="410" cy="190" r="2.2"/>
-            <line class="c-line" x1="160" y1="120" x2="240" y2="170"/><line class="c-line" x1="240" y1="170" x2="320" y2="135"/>
-            <line class="c-line" x1="320" y1="135" x2="410" y2="190"/>
+<div class="card" id="step1">
 
-            <circle class="c-star" cx="780" cy="120" r="3"/><circle class="c-star2" cx="860" cy="160" r="2.2"/>
-            <circle class="c-star" cx="720" cy="200" r="2.6"/><line class="c-line" x1="780" y1="120" x2="860" y2="160"/>
-            <line class="c-line" x1="860" y1="160" x2="720" y2="200"/>
+<h1>Hoy cumple años<br>el alma más linda</h1>
 
-            <circle class="c-star2" cx="120" cy="520" r="2.2"/><circle class="c-star" cx="210" cy="560" r="3"/>
-            <circle class="c-star2" cx="300" cy="520" r="2.2"/><line class="c-line" x1="120" y1="520" x2="210" y2="560"/>
-            <line class="c-line" x1="210" y1="560" x2="300" y2="520"/>
-          </svg>
+<p class="sub">Para <b>Maicai</b> ✨</p>
 
-          <div class="aura"></div>
+<div class="scene">
 
-          <!-- Wave -->
-          <div class="wave" id="wave"></div>
+<div class="cakeWrap" id="cakeArea">
 
-          <!-- Cake -->
-          <div class="cakeWrap" id="cakeArea" title="Pasa el cursor (boca) y haz click para soplar 👄">
-            <div class="plate"></div>
+<div class="candles" id="candles">
 
-            <div class="cake" id="cake">
-              <div class="icing"></div>
+<div class="candle">
+<div class="flame"></div>
+</div>
 
-              <div class="candles" id="candles">
-                <div class="candle"><div class="wick"></div><div class="flame"></div>
-                  <svg class="smoke" viewBox="0 0 64 64" aria-hidden="true">
-                    <path d="M24 54c-6-6-5-14 2-20s7-12 0-18" fill="none" stroke="#ffffffaa" stroke-width="4" stroke-linecap="round"/>
-                    <path d="M38 54c-6-6-5-14 2-20s7-12 0-18" fill="none" stroke="#ffffff88" stroke-width="4" stroke-linecap="round"/>
-                  </svg>
-                </div>
-                <div class="candle"><div class="wick"></div><div class="flame"></div>
-                  <svg class="smoke" viewBox="0 0 64 64" aria-hidden="true">
-                    <path d="M24 54c-6-6-5-14 2-20s7-12 0-18" fill="none" stroke="#ffffffaa" stroke-width="4" stroke-linecap="round"/>
-                    <path d="M38 54c-6-6-5-14 2-20s7-12 0-18" fill="none" stroke="#ffffff88" stroke-width="4" stroke-linecap="round"/>
-                  </svg>
-                </div>
-                <div class="candle"><div class="wick"></div><div class="flame"></div>
-                  <svg class="smoke" viewBox="0 0 64 64" aria-hidden="true">
-                    <path d="M24 54c-6-6-5-14 2-20s7-12 0-18" fill="none" stroke="#ffffffaa" stroke-width="4" stroke-linecap="round"/>
-                    <path d="M38 54c-6-6-5-14 2-20s7-12 0-18" fill="none" stroke="#ffffff88" stroke-width="4" stroke-linecap="round"/>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
+<div class="candle">
+<div class="flame"></div>
+</div>
 
-          <div class="note">Pasa el cursor por la torta (👄) y muévelo: las velas reaccionan como con viento ✨</div>
-        </div>
+<div class="candle">
+<div class="flame"></div>
+</div>
 
-        <div class="btns">
-          <button class="primary" id="blowBtn">Soplar 🎂</button>
-          <button class="ghost" id="skipBtn">Ir directo al regalo →</button>
-        </div>
-      </div>
-    </div>
+</div>
 
-    <!-- STEP 2 -->
-    <div class="card hidden" id="step2" style="margin-top:16px;">
-      <p>
-        Este regalo es para que te tomes un momento de observar y aprender de tu mundo interior.<br/><br/>
-        En compañía de una astróloga, verás tu revolución solar y lo que el universo tiene preparado para ti este año.
-      </p>
+<div class="cake" id="cake">
+<div class="icing"></div>
+</div>
 
-      <div class="section">
-        <p class="small" style="margin-bottom:6px;"><strong>Elige un horario:</strong></p>
+<div class="plate"></div>
 
-        <div class="optionGrid">
-          <a class="option" id="opt1" href="#" target="_blank" rel="noopener">
-            <div>📍</div>
-            <div>
-              <strong>Presencial en Envigado – El Esmeraldal</strong>
-              Sábado 9 de marzo en la mañana
-              <div class="tag">Reservar por WhatsApp</div>
-            </div>
-          </a>
+</div>
 
-          <a class="option" id="opt2" href="#" target="_blank" rel="noopener">
-            <div>📍</div>
-            <div>
-              <strong>Presencial en Envigado – El Esmeraldal</strong>
-              Sábado 23 de marzo en la mañana
-              <div class="tag">Reservar por WhatsApp</div>
-            </div>
-          </a>
+</div>
 
-          <a class="option" id="opt3" href="#" target="_blank" rel="noopener">
-            <div>💻</div>
-            <div>
-              <strong>Virtual</strong>
-              Por acordar en semana después de las 5 pm
-              <div class="tag">Coordinar por WhatsApp</div>
-            </div>
-          </a>
-        </div>
+<div class="btns">
 
-        <div class="btns" style="margin-top:18px;">
-          <button class="ghost" id="replayBtn">Otra vez confetti 🎉</button>
-        </div>
-      </div>
-    </div>
-  </div>
+<button class="primary" id="blowBtn">
+Soplar 🎂
+</button>
 
-  <script>
-    // ===== WhatsApp (funcionando) =====
-    const WA_NUMBER = "525520289827"; // sin +
-    function waLink(text){
-      return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
-    }
-    document.getElementById("opt1").href = waLink("Hola! ✨ Quiero reservar la sesión (Presencial Envigado - El Esmeraldal) para el Sábado 9 de marzo en la mañana.");
-    document.getElementById("opt2").href = waLink("Hola! ✨ Quiero reservar la sesión (Presencial Envigado - El Esmeraldal) para el Sábado 23 de marzo en la mañana.");
-    document.getElementById("opt3").href = waLink("Hola! ✨ Quiero coordinar la sesión Virtual (en semana después de las 5 pm). ¿Qué días tienes disponibles?");
+<button class="ghost" id="skipBtn">
+Ir directo al regalo →
+</button>
 
-    // ===== Interacción =====
-    const blowBtn = document.getElementById("blowBtn");
-    const skipBtn = document.getElementById("skipBtn");
-    const step2 = document.getElementById("step2");
-    const cake = document.getElementById("cake");
-    const cakeArea = document.getElementById("cakeArea");
-    const confetti = document.getElementById("confetti");
-    const replayBtn = document.getElementById("replayBtn");
-    const wave = document.getElementById("wave");
+</div>
 
-    let blown = false;
+</div>
 
-    function boomConfetti() {
-      confetti.innerHTML = "";
-      const colors = ["#f7e7a6","#d7b35a","#ff7ec2","#ffd6ea","#ffffff","#b9a7ff"];
-      const count = 150;
-      for (let i=0;i<count;i++){
-        const s=document.createElement("span");
-        const left=Math.random()*100;
-        const size=6+Math.random()*10;
-        const dur=2.6+Math.random()*2.6;
-        s.style.left = left+"vw";
-        s.style.width = size+"px";
-        s.style.height = (size*1.4)+"px";
-        s.style.background = colors[Math.floor(Math.random()*colors.length)];
-        s.style.animationDuration = dur+"s";
-        confetti.appendChild(s);
-      }
-      setTimeout(()=> confetti.innerHTML="", 5200);
-    }
 
-    function revealGift(){
-      step2.classList.remove("hidden");
-      step2.scrollIntoView({ behavior:"smooth", block:"start" });
-    }
+<div class="card hidden" id="step2" style="margin-top:20px;">
 
-    function astralWave(){
-      wave.classList.remove("go");
-      // reflow para reiniciar animación
-      void wave.offsetWidth;
-      wave.classList.add("go");
-    }
+<p>
 
-    function blow(){
-      if (blown) { revealGift(); return; }
-      blown = true;
-      astralWave();
-      cake.classList.add("blown");
-      setTimeout(()=> {
-        boomConfetti();
-        revealGift();
-      }, 750);
-    }
+Este regalo es para que te tomes un momento de observar y aprender de tu mundo interior.
 
-    blowBtn.addEventListener("click", blow);
-    cakeArea.addEventListener("click", blow);
+<br><br>
 
-    skipBtn.addEventListener("click", ()=>{
-      boomConfetti();
-      revealGift();
-    });
+En compañía de una astróloga, verás tu revolución solar y lo que el universo tiene preparado para ti este año.
 
-    replayBtn?.addEventListener("click", boomConfetti);
+</p>
 
-    // ===== “Viento” con el cursor: velas reaccionan =====
-    function setWindFromEvent(e){
-      const rect = cakeArea.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;   // 0..1
-      const y = (e.clientY - rect.top) / rect.height;   // 0..1
+<div class="optionGrid">
 
-      // viento: izquierda(-) derecha(+)
-      const angle = (x - 0.5) * 10;          // -5..+5 deg
-      const squeeze = 1 - Math.min(0.22, Math.abs(y - 0.3) * 0.25); // leve “aplastado” al acercarse
-      document.documentElement.style.setProperty("--windX", `${angle}deg`);
-      document.documentElement.style.setProperty("--windS", `${squeeze}`);
-    }
+<a class="option" href="https://wa.me/525520289827?text=Hola%20quiero%20reservar%20la%20sesion%20del%209%20de%20marzo">
+Presencial Envigado – 9 de marzo
+</a>
 
-    cakeArea.addEventListener("mousemove", setWindFromEvent);
-    cakeArea.addEventListener("mouseenter", (e)=> setWindFromEvent(e));
-    cakeArea.addEventListener("mouseleave", ()=>{
-      document.documentElement.style.setProperty("--windX", `0deg`);
-      document.documentElement.style.setProperty("--windS", `1`);
-    });
+<a class="option" href="https://wa.me/525520289827?text=Hola%20quiero%20reservar%20la%20sesion%20del%2023%20de%20marzo">
+Presencial Envigado – 23 de marzo
+</a>
 
-    // soporte touch (móvil)
-    cakeArea.addEventListener("touchmove", (ev)=>{
-      const t = ev.touches?.[0];
-      if (!t) return;
-      setWindFromEvent(t);
-    }, {passive:true});
-  </script>
+<a class="option" href="https://wa.me/525520289827?text=Hola%20quiero%20coordinar%20la%20sesion%20virtual">
+Virtual (después de 5 pm)
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const cake = document.getElementById("cake")
+const blowBtn = document.getElementById("blowBtn")
+const skipBtn = document.getElementById("skipBtn")
+const step2 = document.getElementById("step2")
+
+function blow(){
+
+cake.classList.add("blown")
+
+setTimeout(()=>{
+step2.classList.remove("hidden")
+step2.scrollIntoView({behavior:"smooth"})
+},600)
+
+}
+
+blowBtn.onclick = blow
+skipBtn.onclick = blow
+
+</script>
+
 </body>
 </html>
